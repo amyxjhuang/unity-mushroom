@@ -5,14 +5,14 @@ using UnityEditor.UIElements;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed;
-    public bool isMoving;
+    public bool isMoving = false;
     public Vector2 input;  // which way player is moving
     private Animator animator;
-
     public LayerMask solidObjectsLayer;
     public LayerMask interactableLayer;
     private void Awake()
     {
+        Debug.Log("PlayerController Awake");
         animator = GetComponent<Animator>();
     }
 
@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
                 animator.SetFloat("moveX", input.x);
                 animator.SetFloat("moveY", input.y);
 
+                Debug.Log(input.x + " " + input.y);
                 var targetPos = transform.position; 
 
                 targetPos.x += input.x;
@@ -61,10 +62,10 @@ public class PlayerController : MonoBehaviour
 
     private bool IsWalkable(Vector3 targetPos)
     {
-        if (Physics2D.OverlapCircle(targetPos, 0f, solidObjectsLayer | interactableLayer) != null)
-        {
-            return false;
-        }
+        // if (Physics2D.OverlapCircle(targetPos, 0f, solidObjectsLayer | interactableLayer) != null)
+        // {
+        //     return false;
+        // }
         return true;
     }
 
